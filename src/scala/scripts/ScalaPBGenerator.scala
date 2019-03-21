@@ -38,6 +38,8 @@ class ScalaPBGenerator extends Processor {
       require(fullPath.toFile.exists, s"Path $fullPath does not exist, which it should as a dependency of this rule")
       val relativePath = root.relativize(fullPath)
 
+      println(s"ScalaPBGenerator --------- copy: [$fullPath] -> [$relativePath]")
+
       relativePath.toFile.getParentFile.mkdirs
       Files.copy(fullPath, relativePath, REPLACE_EXISTING)
     }
