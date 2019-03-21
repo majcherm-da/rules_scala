@@ -10,6 +10,9 @@ object PBGenerateRequest {
     val jarOutput = args.get(0)
     val protoFiles = args.get(4).split(':')
 
+    println(s"XXXXX - jarOutput: $jarOutput")
+    println(s"XXXXX - protoFiles: $protoFiles")
+
     println(s"XXXXX - includedProto: ${args.get(1)}")
 
     val includedProto = args.get(1).drop(1).split(':').distinct.map { e =>
@@ -33,6 +36,9 @@ object PBGenerateRequest {
       case s if s.charAt(0) == '-' => s.tail.split(':').toList //drop padding character
       case other => sys.error(s"expected a padding character of - (dash), but found: $other")
     }) ++ List(".")
+
+    println(s"XXXXX - transitiveProtoPaths: $transitiveProtoPaths")
+
 
     val tmp = Paths.get(Option(System.getProperty("java.io.tmpdir")).getOrElse("/tmp"))
     val scalaPBOutput = Files.createTempDirectory(tmp, "bazelscalapb")
