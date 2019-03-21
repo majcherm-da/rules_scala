@@ -41,8 +41,10 @@ class ScalaPBGenerator extends Processor {
       println(s"ScalaPBGenerator --------- copy1: [${fullPath}] -> [${relativePath}]")
       println(s"ScalaPBGenerator --------- copy2: [${fullPath.toAbsolutePath()}] -> [${relativePath.toAbsolutePath()}]")
 
+      Files.deleteIfExists(relativePath.toAbsolutePath())
+
       relativePath.toFile.getParentFile.mkdirs
-      Files.copy(fullPath, relativePath, REPLACE_EXISTING)
+      Files.copy(fullPath, relativePath)
     }
   }
   def deleteDir(path: Path): Unit =
