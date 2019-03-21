@@ -9,6 +9,9 @@ object PBGenerateRequest {
   def from(args: java.util.List[String]): PBGenerateRequest = {
     val jarOutput = args.get(0)
     val protoFiles = args.get(4).split(':')
+
+    println(s"XXXXX - includedProto: ${args.get(1)}")
+
     val includedProto = args.get(1).drop(1).split(':').distinct.map { e =>
       val p = e.split(',')
       // If its an empty string then it means we are local to the current repo for the key, no op
@@ -17,6 +20,8 @@ object PBGenerateRequest {
       // if the to compile files contains this absolute path then we are compiling it and shoudln't try move it around(duplicate files.)
       case (Some(k), v) if !protoFiles.contains(v) => (Paths.get(k), Paths.get(v))
     }.toList
+
+    println(s"XXXXX - includedProto out: $includedProto")
 
     val flagOpt = args.get(2) match {
       case "-" => None
