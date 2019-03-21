@@ -41,7 +41,11 @@ class ScalaPBGenerator extends Processor {
       println(s"ScalaPBGenerator --------- copy1: [${fullPath}] -> [${relativePath}]")
       println(s"ScalaPBGenerator --------- copy2: [${fullPath.toAbsolutePath()}] -> [${relativePath.toAbsolutePath()}]")
 
-      Files.deleteIfExists(relativePath.toAbsolutePath())
+      val outFile = relativePath.toFile
+      if (outFile.exists) {
+        val writeable = outFile.setWritable(true, false);
+        println(s"XXXXXXXX writeable: $writeable")
+      }
 
       relativePath.toFile.getParentFile.mkdirs
       Files.copy(fullPath, relativePath)
