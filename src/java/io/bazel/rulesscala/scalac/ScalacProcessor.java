@@ -11,6 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.*;
 import java.util.Map.Entry;
@@ -302,7 +303,7 @@ class ScalacProcessor implements Processor {
       Path target = dest.resolve(dstr);
       File tfile = target.getParent().toFile();
       tfile.mkdirs();
-      Files.copy(source, target);
+      Files.copy(source, target, REPLACE_EXISTING);
     }
   }
 
@@ -319,7 +320,7 @@ class ScalacProcessor implements Processor {
                 + " has a namespace conflict with another file: "
                 + target.getFileName());
       } else {
-        Files.copy(source, target);
+        Files.copy(source, target, REPLACE_EXISTING);
       }
     }
   }

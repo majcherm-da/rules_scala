@@ -3,6 +3,7 @@ package io.bazel.rules_scala.tut_support
 import io.bazel.rulesscala.io_utils.DeleteRecursively
 import java.io.File
 import java.nio.file.{ Files, Paths }
+import java.nio.file.StandardCopyOption.REPLACE_EXISTING
 import tut.TutMain
 
 object TutCompiler {
@@ -15,7 +16,7 @@ object TutCompiler {
     mdOutput.toFile.listFiles.toList match {
       case List(path) =>
         try {
-          Files.copy(path.toPath, Paths.get(outfile))
+          Files.copy(path.toPath, Paths.get(outfile), REPLACE_EXISTING)
           DeleteRecursively.run(mdOutput)
           println(s"wrote: $outfile")
         }

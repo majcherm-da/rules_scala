@@ -10,6 +10,7 @@ import protocbridge.ProtocBridge
 import scala.collection.JavaConverters._
 import scalapb.ScalaPbCodeGenerator
 import java.nio.file.{Files, Paths}
+import java.nio.file.StandardCopyOption.REPLACE_EXISTING
 import scalapb.{ScalaPBC, ScalaPbCodeGenerator, ScalaPbcException}
 
 object ScalaPBWorker extends GenericWorker(new ScalaPBGenerator) {
@@ -38,7 +39,7 @@ class ScalaPBGenerator extends Processor {
       val relativePath = root.relativize(fullPath)
 
       relativePath.toFile.getParentFile.mkdirs
-      Files.copy(fullPath, relativePath)
+      Files.copy(fullPath, relativePath, REPLACE_EXISTING)
     }
   }
   def deleteDir(path: Path): Unit =
