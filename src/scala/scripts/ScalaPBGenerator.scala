@@ -48,7 +48,7 @@ class ScalaPBGenerator extends Processor {
       }
 
       relativePath.toFile.getParentFile.mkdirs
-      Files.copy(fullPath, relativePath)
+      Files.copy(fullPath, relativePath, REPLACE_EXISTING)
     }
   }
   def deleteDir(path: Path): Unit =
