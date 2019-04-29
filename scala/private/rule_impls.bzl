@@ -1166,7 +1166,7 @@ def scala_test_impl(ctx):
         ctx = ctx,
         executable = executable,
         jvm_flags = [
-            "-DRULES_SCALA_WS=%s" % ctx.workspace_name,
+            "-DRULES_SCALA_MAIN_WS_NAME=%s" % ctx.workspace_name,
             "-DRULES_SCALA_ARGS_FILE=%s" % argsFile.short_path
         ] + ctx.attr.jvm_flags,
         main_class = ctx.attr.main_class,
